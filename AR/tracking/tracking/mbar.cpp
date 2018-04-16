@@ -78,7 +78,7 @@ void MBAR::preprocess_image()
 void MBAR::find_contours()
 {
 	cv::adaptiveThreshold(image_gray_, image_bw_, 255.0, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY_INV, 7, 3.0);
-	cv::imshow("bw", image_bw_);
+	//cv::imshow("bw", image_bw_);
 
 	std::vector<std::vector<cv::Point>> contours_candidates;
 	cv::findContours(image_bw_.clone(), contours_candidates, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
@@ -149,13 +149,13 @@ void MBAR::crop_markers()
 void MBAR::read_markers()
 {
 	cv::namedWindow("marker", cv::WINDOW_KEEPRATIO);
-	cv::namedWindow("marker_orig", cv::WINDOW_KEEPRATIO);
+	//cv::namedWindow("marker_orig", cv::WINDOW_KEEPRATIO);
 	cv::Mat orig_marker = cv::imread("../../data/marker.png", CV_LOAD_IMAGE_GRAYSCALE);
 	cv::resize(orig_marker, orig_marker, cv::Size(MARKER_BINS, MARKER_BINS));
 	cv::Mat m_rotation = cv::getRotationMatrix2D(cv::Point2f((MARKER_BINS - 1)*0.5f, (MARKER_BINS - 1)*0.5f), -90.0, 1.0);
 	cv::Mat btwxor(orig_marker.size(), CV_8UC1);
 
-	cv::imshow("marker_orig", orig_marker);
+	//cv::imshow("marker_orig", orig_marker);
 	cv::waitKey(30);
 
 	for (size_t i = 0; i < markers_.size(); i++)
